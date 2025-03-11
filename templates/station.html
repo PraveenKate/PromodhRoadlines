@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel & Cargo Transport Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .footer {
+            background-color: hsl(227, 29%, 13%);
+            ;
+            color: #ffffff;
+            padding: 40px 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-section p,
+        .footer-section ul li {
+            font-size: 0.9rem;
+            color: #d1d5db;
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li a {
+
+            color: #d1d5db;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-socials a {
+            font-size: 1.2rem;
+            margin: 0 5px;
+            color: #d1d5db;
+            transition: color 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #d1d5db;
+            border-top: 1px solid #333333;
+            background-color: hsl(229, 17%, 19%);
+            ;
+        }
+
+
+
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .gallery-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 20px;
+            padding: 5%;
+        }
+
+        .gallery-img-container {
+            position: relative;
+            width: 28%;
+            height: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        /* Box shadow and 3D effect on hover */
+        .gallery-img-container:hover {
+            transform: scale(1.05);
+            /* Slight zoom effect */
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.446);
+            /* 3D shadow */
+        }
+
+        .gallery-img-container:hover .gallery-img {
+            filter: blur(1px);
+            /* Slight blur effect */
+        }
+
+        .info-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: bottom 0.3s ease-in-out;
+            overflow-y: auto;
+            max-height: 50%;
+            border-radius: 22px;
+        }
+
+        .gallery-img-container:hover .info-overlay {
+            bottom: 0;
+        }
+
+        .info-overlay p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+
+
+
+        .more-btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .more-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            z-index: 1000;
+            /* Ensure it appears above other elements */
+            text-decoration: none;
+        }
+
+        .whatsapp-icon {
+            width: 60px;
+            /* Adjust the size of the icon */
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add a shadow for better visibility */
+            transition: transform 0.3s ease;
+            /* Add a hover animation */
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.1);
+            /* Slight zoom effect on hover */
+        }
+
+        /* Make the WhatsApp icon float */
+        .whatsapp-float {
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-5px);
+            /* Slight movement up on hover for a floating effect */
+        }
+
+        /* */
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 12%;
+            /* Distance from the bottom */
+            right: 20px;
+            /* Distance from the right */
+            z-index: 1000;
+            /* Ensure it appears above other elements */
+            text-decoration: none;
+            animation: floatUpDown 2s infinite ease-in-out;
+            /* Animation to float up and down */
+        }
+
+        /* Keyframes for floating up and down */
+        @keyframes floatUpDown {
+            0% {
+                transform: translateY(0);
+                /* Start at normal position */
+            }
+
+            50% {
+                transform: translateY(-10px);
+                /* Move up */
+            }
+
+            100% {
+                transform: translateY(0);
+                /* Return to normal position */
+            }
+        }
+
+        .whatsapp-icon {
+            width: 55px;
+            /* Adjust the size of the icon */
+            height: 55px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Add a shadow for better visibility */
+            transition: transform 0.3s ease;
+            /* Add a hover animation */
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.1);
+            /* Slight zoom effect on hover */
+        }
+
+
+        header {
+            /* background-color: #ffffff; */
+
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(79, 56, 56, 0.598);
+            background-color: hsl(229, 17%, 32%);
+            ;
+            padding: 2% 2%;
+            margin: .5%;
+        }
+
+        /* header h1 {
+        color: white;
+        font-size: 1.5rem;
+    } */
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: orange;
+            font-size: 1.1rem;
+            transition: .31s;
+        }
+
+        /* .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        } */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+        }
+
+
+        .login-btn-wrapper {
+            margin-right: 2%;
+            position: relative;
+            width: min-content;
+        }
+
+        .login-btn-wrapper div {
+
+            width: 180%;
+            padding: 7% 0;
+            background-color: white;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .login-btn {
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            background-color: #3198c7;
+
+            border-radius: 20px;
+            padding: 7% 17%;
+            z-index: 1;
+            position: relative;
+        }
+
+
+        .login-btn:hover {
+            background-color: #001f66;
+            color: white;
+        }
+
+
+
+        .head {
+            background: linear-gradient(to bottom, #87ceeb, #d6f1ff);
+            padding: 1% 0;
+            color: hsl(229, 17%, 32%);
+            text-align: center;
+            box-shadow: 2px 2px 10px rgb(193, 239, 255);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20%;
+            padding: 0;
+            margin: -.5% -2%;
+
+        }
+
+        .logo img {
+            width: 110%;
+
+        }
+
+
+
+
+        /* Social Media Icons */
+        .social {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-wrapper {
+
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            padding: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 1.2rem;
+            color: hsl(229, 17%, 32%);
+        }
+
+        .icon-wrapper:hover {
+            background-color: hsl(229, 17%, 32%);
+        }
+
+        .icon-wrapper:hover .icon {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            .icon-wrapper {
+                padding: 10px;
+            }
+
+            .icon {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            html {
+                width: 100%;
+            }
+
+            /* Header adjustments */
+            header {
+                padding: 5% 2%;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .login-btn-wrapper {
+                margin-top: 10px;
+            }
+
+            /* Hero section adjustments */
+            .hero {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-image {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            /* Schedule section adjustments */
+            .schedule-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .schedule-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .schedule-image {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            /* Focus section adjustments */
+            .focus-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .focus-card {
+                width: 80%;
+                margin: 10px 0;
+            }
+
+            /* Gallery adjustments */
+            .gallery-images {
+                width: 100%;
+                padding-left: 0;
+            }
+
+            .gallery-img {
+                width: 45%;
+                margin: 0 5px;
+            }
+
+            /* Contact form adjustments */
+            .contactContainer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mapContainer {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+
+            .contact-form {
+                width: 90%;
+            }
+
+            /* Footer adjustments */
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 20px;
+            }
+
+            /* WhatsApp icon adjustments */
+            .whatsapp-float {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+
+        }
+
+        /* Mobile Menu Styles */
+        #hamburger-icon {
+            margin: auto 0;
+            display: none;
+            cursor: pointer;
+        }
+
+        #hamburger-icon div {
+            width: 35px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .open .bar1 {
+            -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+            transform: rotate(-45deg) translate(-6px, 6px);
+        }
+
+        .open .bar2 {
+            opacity: 0;
+        }
+
+        .open .bar3 {
+            -webkit-transform: rotate(45deg) translate(-6px, -8px);
+            transform: rotate(45deg) translate(-6px, -8px);
+        }
+
+        .open .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: relative;
+            top: 0px;
+            left: 0;
+            height: auto;
+            background-color: hsl(229, 17%, 32%);
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .mobile-menu li {
+            width: 100%;
+            padding: 1% 0;
+            list-style-type: none;
+            list-style-position: inside;
+        }
+
+        .mobile-menu li:hover {
+            background-color: hsl(230, 19%, 58%);
+
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu a:hover {
+            color: orange;
+        }
+
+        .mapContainer iframe {
+            height: 400px;
+            width: 500px;
+            margin-left: 3%;
+        }
+
+        .gallery-title {
+            background-color: #fde5df;
+            color: #e85a3c;
+            padding: 5px 10px;
+            border-radius: 25px;
+            width: 10%;
+            font-size: 25px;
+            margin: 2%;
+            margin-bottom: 3%;
+            text-align: center;
+        }
+
+        @media only screen and (min-width: 300px) and (max-width: 700px) {
+            .nav-links {
+                display: none;
+            }
+
+            .login-btn-wrapper {
+                display: none;
+            }
+
+            #hamburger-icon {
+                display: block;
+            }
+
+            .focus-card {
+                width: 50%;
+            }
+
+            .focus-card:hover img {
+                transform: scale(110%);
+            }
+
+            .contactContainer {
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+            }
+
+            .mapContainer,
+            .mapContainer iframe {
+                height: 400px;
+                width: 90%;
+                margin-left: 3%;
+            }
+
+            .contact-form {
+                width: 80%;
+            }
+
+            .schedule-section {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 50px 20px;
+                background-color: #ffffff;
+                flex-wrap: wrap;
+                /* Ensures responsiveness */
+            }
+
+            .schedule-content {
+                width: 100%;
+
+            }
+
+            .schedule-image {
+                width: 100%;
+                align-self: flex-end;
+            }
+
+            .schedule-image img {
+                width: 100%;
+                display: none;
+
+            }
+
+            .hero-image {
+                width: 70%;
+            }
+
+            .hero-content h2,
+            .schedule-content h2,
+            .footer-section h2 {
+                font-size: 25px;
+            }
+
+            .gallery-container span {
+                width: 200px;
+            }
+
+
+            .gallery-images {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+                gap: 20px;
+                padding: 5%;
+            }
+
+            .gallery-img-container {
+                position: relative;
+                width: 90%;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 25px;
+                border-radius: 20px;
+            }
+
+            .gallery-title {
+                background-color: #fde5df;
+                color: #e85a3c;
+                padding: 5px 10px;
+                border-radius: 25px;
+                width: 10%;
+                font-size: 25px;
+                margin: 2%;
+                margin-bottom: 3%;
+                text-align: center;
+            }
+
+            .gallery-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: opacity 0.3s ease;
+
+            }
+
+            .footer {
+                padding: 0;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .footer-container .footer-section {
+                display: none;
+            }
+
+
+
+            /* Social Media Icons */
+            .social {
+                gap: 5px;
+            }
+
+            .icon-wrapper {
+                padding: 4px;
+            }
+
+            .icon {
+                font-size: .8rem;
+            }
+
+            .logo img {
+                width: 150%;
+            }
+
+        }
+
+        @media only screen and (min-width: 700px) and (max-width: 900px) {
+            .focus-card {
+                width: 40%;
+                margin: 2% 0;
+            }
+
+            .focus-card:hover img {
+                transform: scale(105%);
+
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .gallery-img-container {
+                position: relative;
+                width: 40%;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 25px;
+                border-radius: 20px;
+            }
+
+        }
+
+        @media screen and (min-width: 300px) and (max-width: 500px) {
+
+            .head {
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 10px;
+            }
+
+            .footer-section {
+                margin-bottom: 20px;
+            }
+
+            .footer-bottom {
+                font-size: 0.6rem;
+                padding: 8px;
+            }
+        }
+
+
+
+        /* Station Section Styles */
+        .unique-station-section {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 40px 1%;
+        }
+
+        .unique-station-header {
+            text-align: center;
+        }
+
+        .unique-station-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        .unique-station-description {
+            margin-top: 12px;
+            color: #4b5563;
+            font-size: 18px;
+        }
+
+        .headline {
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.5s ease-in-out;
+            font-family: 'Arial', sans-serif;
+            animation: slide-in 0.8s ease-out both;
+            position: relative;
+            transform: scale(1.05);
+
+            text-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Underline Animation */
+
+        .headline-main {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .headline:hover::after {
+            width: 100%;
+        }
+
+        .headline:hover {
+            transform: scale(110%);
+            transition: 0.6s;
+            color: rgb(1, 64, 80);
+        }
+
+
+        @keyframes slide-in {
+            0% {
+                transform: translateX(-50%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+
+        .unique-station-section {
+            padding: 50px 20px;
+            background-color: #eff3f8;
+            text-align: center;
+        }
+
+        .unique-station-section h2 {
+            font-size: 1.8rem;
+            color: #212121;
+            margin-bottom: 20px;
+        }
+
+        .unique-station-body {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .unique-station-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .unique-station-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            width: 25%;
+            text-align: left;
+
+
+        }
+
+        .unique-station-card h3 {
+            font-size: 1.5rem;
+            color: #212121;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #005c8e;
+
+        }
+
+        .unique-station-card:hover h3 {
+            text-shadow: 1px 1px 2px #5a626b;
+        }
+
+        .unique-station-card p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .unique-station-card img {
+            display: block;
+            width: 100%;
+            height: 200px;
+            border-radius: 3%;
+        }
+
+        .unique-station-card:hover img {
+            transform: scale(110%);
+            box-shadow: 0 0 5px 0.2px rgb(84, 84, 84);
+            border: none;
+            transition: 0.5s;
+        }
+
+        .unique-station-card:hover {
+            box-shadow: 0 0 5px 0.2px rgb(206, 206, 206);
+        }
+
+        .unique-station-card:hover,
+        .unique-station-card:hover p {
+            background-color: #f5f5f5;
+            color: rgb(48, 47, 47);
+        }
+
+
+        @media screen and (min-width: 300px) and (max-width: 500px) {
+
+            .unique-station-card {
+                background-color: #ffffff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 20px;
+                width: 75%;
+                text-align: left;
+            }
+
+            .logo {
+                margin-left: 0%;
+                width: 25%;
+            }
+
+            .whatsapp-float {
+                bottom: 12%;
+                right: 4%;
+
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .social {
+                width: 25%;
+            }
+
+            .icon-wrapper {
+                width: 20px;
+                height: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    {% load static %}
+    <section class="head">
+        <div class="container">
+            <div class="header-content">
+                <!-- <div class="logo">
+               <img src="NewMoveExpress-Photoroom.png" alt="Logo"></a> 
+            </div> -->
+                <div class="logo">
+                    <a href="{% url 'frontend_home' %}">
+                        <img src="{% static 'images/promodh2logo.png' %}" alt="Logo">
+                    </a>
+                </div>
+
+                <div class="social">
+                    <div class="icon-wrapper">
+                        <a href="tel:+919141766104">
+                            <i class="fas fa-phone-alt icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a
+                            href="https://www.instagram.com/pramod_roadlines_hubli?igsh=MXVkMTFvOGhtemV6bA%3D%3D&utm_source=qr">
+                            <i class="fab fa-instagram icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a href="mailto:pramodroadlines111@gmail.com">
+                            <i class="fas fa-envelope icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a href="index.html?name=#map">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header>
+        <nav class="navbar">
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="{% url 'frontend_home' %}">Home</a>
+                <a href="{% url 'frontend_home' %}#about">About</a>
+                <a href="{% url 'frontend_home' %}#delivery">Delivery Stations</a>
+                <a href="{% url 'frontend_home' %}#service">Services</a>
+                <a href="{% url 'frontend_home' %}#gallery">Gallery</a>
+                <!-- <a href="{% url 'frontend_home' %}#events">Events</a> -->
+                <a href="{% url 'frontend_home' %}#contact-form">Contact</a>
+            </div>
+
+            <!-- Login Button -->
+            <!-- <div class="login-btn-wrapper">
+                <div>
+                    <button class="login-btn" onclick="location.href='{% url 'login' %}';">Login</button>
+                </div>
+            </div> -->
+
+            <!-- Mobile Menu (Hamburger) -->
+            <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+
+                <ul class="mobile-menu">
+                    <li><a href="{% url 'frontend_home' %}">Home</a></li>
+                    <li><a href="{% url 'frontend_home' %}#about">About</a></li>
+                    <li><a href="{% url 'frontend_home' %}#delivery">Delivery Stations</a></li>
+                    <li><a href="{% url 'frontend_home' %}#service">Services</a></li>
+                    <li><a href="{% url 'frontend_home' %}#gallery">Gallery</a></li>
+                    <!-- <li><a href="{% url 'frontend_home' %}#events">Events</a></li> -->
+                    <li><a href="{% url 'frontend_home' %}#contact-form">Contact</a></li>
+                    <!-- <li id="login"><a href="{% url 'login' %}">Login</a></li> -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <!--new section delivery-->
+    {% load static %}
+    <section class="unique-station-section" id="station-details">
+        <div class="unique-station-header">
+            <div class="headline-main">
+                <h2 class="headline">Daily Parcel Service from Hubballi & Belagavi to the Following Stations</h2>
+            </div>
+            <p class="unique-station-description">
+                Explore our extensive network of stations that ensure seamless logistics solutions across multiple
+                locations.
+                We cater to all your transportation needs with full load, part load, and direct delivery services.
+            </p>
+        </div>
+
+        <div class="unique-station-body">
+            <div class="unique-station-grid">
+                <div class="unique-station-card" id="Hubli">
+                    <img src="{% static 'Photos/b1.png' %}" alt="Hubli Station" class="unique-station-image">
+                    <h3 class="unique-station-name">Hubli</h3>
+                    <p class="unique-station-address">A.G. Hugar Building, Near K.K. Complex, New Cotton Market, Hubli.
+                    </p>
+                    <p class="unique-station-contact">Contact: 0836-2354147</p>
+                </div>
+                <div class="unique-station-card" id="Belagavi">
+                    <img src="{% static 'Photos/belagavi.png' %}" alt="Belagavi Station" class="unique-station-image">
+                    <h3 class="unique-station-name">Belagavi</h3>
+                    <p class="unique-station-address">Plot No. 37, Old P.B. Road, Swagat Complex, Om Nagar.</p>
+                    <p class="unique-station-contact">Contact: 0831-2487080</p>
+                </div>
+                <div class="unique-station-card" id="Bellary">
+                    <img src="{% static 'Photos/belagavi.png' %}" alt="Bellary Station" class="unique-station-image">
+                    <h3 class="unique-station-name">Bellary</h3>
+                    <p class="unique-station-address">Veeresh Building, Near New Bus Stand, Bangalore Bypass Road.</p>
+                    <p class="unique-station-contact">Contact: 8183986157</p>
+                </div>
+                <div class="unique-station-card" id="Gadag">
+                    <img src="{% static 'Photos/belagavi.png' %}" alt="Gadag Station" class="unique-station-image">
+                    <h3 class="unique-station-name">Gadag</h3>
+                    <p class="unique-station-address">Mahaveer Colony Abbigere Compound, Near B.C. Kere.</p>
+                    <p class="unique-station-contact">Contact: 9141835105</p>
+                </div>
+                <div class="unique-station-card" id="Gangavati">
+                    <img src="{% static 'Photos/Gadag.png' %}" alt="Gangavati Station" class="unique-station-image">
+                    <h3 class="unique-station-name">Gangavati</h3>
+                    <p class="unique-station-address">A.P.M.C. Yard, CBS Gunj, Gangavati.</p>
+                    <p class="unique-station-contact">Contact: 9448205107</p>
+                </div>
+                <div class="unique-station-card" id="Ichalkaranji">
+                    <img src="{% static 'Photos/detail1.jpeg' %}" alt="Ichalkaranji Station"
+                        class="unique-station-image">
+                    <h3 class="unique-station-name">Ichalkaranji</h3>
+                    <p class="unique-station-address">Sutar Mala, Near Hockey Ground, Ichalkaranji (MH).</p>
+                    <p class="unique-station-contact">Contact: 9148193179</p>
+                </div>
+
+                {% for station in stations %}
+                <div class="unique-station-card" id="{{ station.name }}">
+                    <img src="{{ station.image.url }}" alt="{{ station.name }}" class="unique-station-image">
+                    <h3 class="unique-station-name">{{ station.name }}</h3>
+                    <p class="unique-station-address">{{ station.address }}</p>
+                    <p class="unique-station-contact">Contact: {{ station.contact }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="unique-station-footer">
+            <p class="unique-station-summary">
+                We also provide full load vehicles for all over India. Our direct delivery stations ensure timely and
+                efficient logistics solutions.
+            </p>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Pramod Roadlines</h3>
+                <p>A. G. Hugar Building, Near K. K. Complex, New Cotton Market, Hubli.</p>
+                <p><i class="fa fa-map-marker"></i> Hubli, Karnataka, India</p>
+                <p><i class="fa fa-phone"></i> +91-9448205107, +91-7795925376</p>
+                <p><i class="fa fa-envelope"></i> pramodroadlines111@gmail.com</p>
+                <p><i>GSTIN</i>: 29ATJPS2511G1ZL</p>
+
+                <!-- <div class="footer-socials">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+            </div> -->
+            </div>
+
+            <div class="footer-section">
+                <h3>Pramod Logistics</h3>
+                <p>G. A. Adhoni Complex, New Cotton Market, Hubli.</p>
+                <p><i class="fa fa-map-marker"></i> Hubli, Karnataka, India</p>
+                <p><i class="fa fa-phone"></i> +91-9141766104, +91-7795925376</p>
+                <p><i class="fa fa-envelope"></i> pramodlogisticshubli@gmail.com</p>
+                <p><i>GSTIN</i>: 29CSPPS3352E1ZA</p>
+
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#home">About Us</a></li>
+                    <li><a href="#gallery">Services</a></li>
+                    <li><a href="#map">Locations Map</a></li>
+                    <!-- <li><a href="#">FAQ</a></li> -->
+                    <li><a href="#contact-form">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Delivery Stations</h4>
+                <ul>
+                    <li><a href="station.html?name=#Hubli">Hubli</a></li>
+                    <li><a href="station.html?name=#Belagavi"> Belagavi</a></li>
+                    <li><a href="station.html?name=#Bellary">Bellary</a></li>
+                    <li><a href="station.html?name=#Gadag"> Gadag</a></li>
+                    <li><a href="station.html?name=#Gangavati">Gangavati</a></li>
+                    <li><a href="station.html?name=#ichalkaranji">Ichalkaranji</a></li>
+
+                </ul>
+
+            </div>
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="index.html?name=#service">Full load</a></li>
+                    <li><a href="index.html?name=#service"> Part Load</a></li>
+                    <li><a href="index.html?name=#service">Door Delivery</a></li>
+                    <li><a href="index.html?name=#service"> Door Collection</a></li>
+                    <li><a href="index.html?name=#service">Godown Delivery</a></li>
+                    <li><a href="index.html?name=#service">Special Delivery</a></li>
+                    <li><a href="index.html?name=#service">Special vehicle</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Pramod Roadlines & Logistics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/8073912782?text=Hello!%20I%20would%20like%20to%20inquire%20about%20your%20services."
+        class="whatsapp-float" target="_blank">
+        <img src="{% static 'images/WhatsApp.jpeg' %}" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+
+    <script>
+        function toggleMobileMenu(menu) {
+            menu.classList.toggle('open');
+        }
+
+
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "FOtdoOgfBibQpaRteS_g0"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+
+
+    </script>
+
+
+</body>

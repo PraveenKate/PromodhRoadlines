@@ -1,0 +1,1342 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel & Cargo Transport Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("../static/images/nnlogin.png");
+
+            background-repeat: no-repeat;
+            background-position: 5% 100%;
+            background-size: 40%;
+        }
+
+        header {
+            /* background-color: #ffffff; */
+
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(79, 56, 56, 0.598);
+            background-color: hsl(229, 17%, 32%);
+            ;
+            padding: 2% 2%;
+            margin: .5%;
+        }
+
+        /* header h1 {
+            color: white;
+            font-size: 1.5rem;
+        } */
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: orange;
+            font-size: 1.1rem;
+            transition: .31s;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .login-btn-wrapper {
+            margin-right: 2%;
+            position: relative;
+            width: min-content;
+        }
+
+        .login-btn-wrapper div {
+
+            width: 180%;
+            padding: 7% 0;
+            background-color: white;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .login-btn {
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            background-color: #3198c7;
+
+            border-radius: 20px;
+            padding: 7% 17%;
+            z-index: 1;
+            position: relative;
+        }
+
+
+        .login-btn:hover {
+            background-color: #001f66;
+            color: white;
+        }
+
+        .head {
+            background: linear-gradient(to bottom, #87ceeb, #d6f1ff);
+            padding: 1% 0;
+            color: hsl(229, 17%, 32%);
+            text-align: center;
+            box-shadow: 2px 2px 10px rgb(193, 239, 255);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20%;
+            
+            margin-bottom: -1%;
+            margin-left: -1%;
+        }
+
+        .logo img {
+            width: 110%;
+
+        }
+
+        .social {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icon-wrapper {
+
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            padding: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 1.2rem;
+            color: hsl(229, 17%, 32%);
+        }
+
+        .icon-wrapper:hover {
+            background-color: hsl(229, 17%, 32%);
+        }
+
+        .icon-wrapper:hover .icon {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            .icon-wrapper {
+                padding: 10px;
+            }
+
+            .icon {
+                font-size: 1.5rem;
+            }
+        }
+
+
+        /* Form Container Styles */
+        .form-container {
+            width: 30%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            left: 60%;
+            margin-top: 5%;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+
+        form h2 {
+            text-align: center;
+            color: hsl(229, 17%, 32%);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .form-group input:focus {
+            border-color: hsl(229, 17%, 50%);
+            outline: none;
+            box-shadow: 0px 0px 5px rgba(50, 50, 93, 0.2);
+        }
+
+        .login-btn1 {
+            width: 100%;
+            background-color: #3198c7;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin-top: 2%;
+        }
+
+        .login-btn1:hover {
+            background-color: #001f66;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            color: hsl(229, 17%, 32%);
+            margin-top: 5px;
+        }
+
+        .forgot-password:hover {
+            color: orange;
+            text-decoration: underline;
+        }
+
+        /* Footer Styles */
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: hsl(229, 17%, 40%);
+        }
+
+        .form-footer span {
+            color: #3198c7;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-footer span:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            form {
+                width: 90%;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 2%;
+            left: 40%;
+            margin: 0 auto;
+            z-index: 10;
+            width: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background: white;
+            padding: 0px 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+            width: 30%;
+        }
+
+        .icon-circle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+
+        .success-icon {
+            background-color: #d1fae5;
+        }
+
+        .error-icon {
+            background-color: #fcdcdc;
+        }
+
+        /* Title and Text */
+        .modal-title {
+            font-size: 120%;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-text {
+            font-size: 100%;
+            color: #666;
+        }
+
+        /* Close Button */
+        .close-btn {
+            background-color: #6366f1;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #4f46e5;
+        }
+
+
+
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            html {
+                width: 100%;
+            }
+
+            /* Header adjustments */
+            header {
+                padding: 5% 2%;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .login-btn-wrapper {
+                margin-top: 10px;
+            }
+
+            /* Hero section adjustments */
+            .hero {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-image {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            /* Schedule section adjustments */
+            .schedule-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .schedule-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .schedule-image {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            /* Focus section adjustments */
+            .focus-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .focus-card {
+                width: 80%;
+                margin: 10px 0;
+            }
+
+            /* Gallery adjustments */
+            .gallery-images {
+                width: 100%;
+                padding-left: 0;
+            }
+
+            .gallery-img {
+                width: 45%;
+                margin: 0 5px;
+            }
+
+            /* Contact form adjustments */
+            .contactContainer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mapContainer {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+
+            .contact-form {
+                width: 90%;
+            }
+
+            /* Footer adjustments */
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 20px;
+            }
+
+            /* WhatsApp icon adjustments */
+            .whatsapp-float {
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+
+        }
+
+        /* Mobile Menu Styles */
+        #hamburger-icon {
+            margin: auto 0;
+            display: none;
+            cursor: pointer;
+        }
+
+        #hamburger-icon div {
+            width: 35px;
+            height: 3px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .open .bar1 {
+            -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+            transform: rotate(-45deg) translate(-6px, 6px);
+        }
+
+        .open .bar2 {
+            opacity: 0;
+        }
+
+        .open .bar3 {
+            -webkit-transform: rotate(45deg) translate(-6px, -8px);
+            transform: rotate(45deg) translate(-6px, -8px);
+        }
+
+        .open .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: relative;
+            top: 0px;
+            left: 0;
+            height: auto;
+            background-color: hsl(229, 17%, 32%);
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .mobile-menu li {
+            width: 100%;
+            padding: 1% 0;
+            list-style-type: none;
+            list-style-position: inside;
+        }
+
+        .mobile-menu li:hover {
+            background-color: hsl(230, 19%, 58%);
+
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu a:hover {
+            color: orange;
+        }
+
+        .mapContainer iframe {
+            height: 400px;
+            width: 500px;
+            margin-left: 3%;
+        }
+
+        @media only screen and (min-width: 300px) and (max-width: 700px) {
+
+            /* Social Media Icons */
+            body {
+                background: none;
+            }
+
+            .form-container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5%;
+                margin-left: -60%;
+            }
+
+            form {
+                width: 50%;
+                max-width: 400px;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+                background-color: #ffffff;
+            }
+
+
+            .social {
+                gap: 5px;
+            }
+
+            .icon-wrapper {
+                padding: 4px;
+            }
+
+            .icon {
+                font-size: 1rem;
+            }
+
+            .logo img {
+                width: 150%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .login-btn-wrapper {
+                display: none;
+            }
+
+            #hamburger-icon {
+                display: block;
+            }
+
+            .focus-card {
+                width: 50%;
+            }
+
+            .focus-card:hover img {
+                transform: scale(110%);
+            }
+
+            .contactContainer {
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+            }
+
+            .mapContainer,
+            .mapContainer iframe {
+                height: 400px;
+                width: 90%;
+                margin-left: 3%;
+            }
+
+            .contact-form {
+                width: 80%;
+            }
+
+            .schedule-section {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 50px 20px;
+                background-color: #ffffff;
+                flex-wrap: wrap;
+                /* Ensures responsiveness */
+            }
+
+            .schedule-content {
+                width: 100%;
+
+            }
+
+            .schedule-image {
+                width: 100%;
+                align-self: flex-end;
+            }
+
+            .schedule-image img {
+                width: 100%;
+                display: none;
+
+            }
+
+            .hero-image {
+                width: 70%;
+            }
+
+            .hero-content h2,
+            .schedule-content h2,
+            .footer-section h2 {
+                font-size: 25px;
+            }
+
+            .gallery-container span {
+                width: 200px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .footer-container .footer-section {
+                display: none;
+            }
+        }
+
+        @media only screen and (min-width: 700px) and (max-width: 900px) {
+            .focus-card {
+                width: 40%;
+                margin: 2% 0;
+            }
+
+            .focus-card:hover img {
+                transform: scale(105%);
+
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .form-container {
+                width: 60%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5%;
+                margin-left: -20%;
+            }
+
+            form {
+                width: 60%;
+                max-width: 400px;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+                background-color: #ffffff;
+            }
+
+            body {
+                background-position: 5% 70%;
+                background-size: 45%;
+            }
+
+            .login-btn-wrapper div {
+                margin-left: -50%;
+            }
+
+            .footer-container,
+            .footer-section,
+            .footer-bottom {
+                display: none;
+            }
+
+        }
+
+        .footer-container,
+        .footer-section {
+            display: none;
+
+        }
+
+        .footer-bottom {
+            display: none;
+        }
+
+        @media screen and (min-width: 300px) and (max-width: 500px) {
+
+            .head {
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+
+            .logo {
+                width: 25%;
+            }
+
+
+            /* Form Container Styles */
+           .form-container {
+                width: 70%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                position: relative;
+                left: 60%;
+                margin-top: 10%;
+                margin-left: -45%;
+                margin-bottom: 10%;
+            }
+
+           
+
+            form {
+                width: 100%;
+                max-width: 400px;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+                background-color: #ffffff;
+            }
+
+            form h2 {
+                text-align: center;
+                color: hsl(229, 17%, 32%);
+                margin-bottom: 20px;
+                font-size: large;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+            .form-group label {
+                display: block;
+                font-size: 10px;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                font-size: 10px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+            }
+
+            .form-group input:focus {
+                border-color: hsl(229, 17%, 50%);
+                outline: none;
+                box-shadow: 0px 0px 5px rgba(50, 50, 93, 0.2);
+            }
+
+            .login-btn1 {
+                width: 100%;
+                background-color: #3198c7;
+                color: white;
+                border: none;
+                padding: 6px;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: background-color 0.3s;
+                margin-top: 2%;
+            }
+
+            .login-btn1:hover {
+                background-color: #001f66;
+            }
+
+            .forgot-password {
+                display: block;
+                text-align: right;
+                font-size: 10px;
+                color: hsl(229, 17%, 32%);
+                margin-top: 5px;
+            }
+
+            .forgot-password:hover {
+                color: orange;
+                text-decoration: underline;
+            }
+
+            /* Footer Styles */
+            .form-footer {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 10px;
+                color: hsl(229, 17%, 40%);
+            }
+
+            .form-footer span {
+                color: #3198c7;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .form-footer span:hover {
+                text-decoration: underline;
+            }
+
+
+            .modal {
+                display: none;
+                position: fixed;
+                top: 2%;
+                left: 20%;
+                margin: 0 auto;
+                z-index: 10;
+                width: 75%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Modal Content */
+            .modal-content {
+                background: white;
+                padding: 0px 20px;
+                padding-bottom: 10px;
+                text-align: center;
+                border-radius: 12px;
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+                width: 60%;
+            }
+
+            .icon-circle {
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+            }
+
+            .success-icon {
+                background-color: #d1fae5;
+            }
+
+            .error-icon {
+                background-color: #fcdcdc;
+            }
+
+            /* Title and Text */
+            .modal-title {
+                font-size: 80%;
+                font-weight: bold;
+                color: #333;
+                margin: 0;
+            }
+
+            .modal-text {
+                font-size: 60%;
+                color: #666;
+            }
+
+            /* Close Button */
+            .close-btn {
+                background-color: #6366f1;
+                color: white;
+                padding: 5px 10px;
+                font-size: 10px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .close-btn:hover {
+                background-color: #4f46e5;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .footer-container .footer-section {
+                display: none;
+            }
+
+    .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* Ensure the footer sticks at the bottom */
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.7rem; /* Slightly increased for better readability */
+    color: #d1d5db;
+    border-top: 1px solid #333333;
+    background-color: hsl(229, 17%, 19%);
+    width: 100%;
+    
+} 
+}
+
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    /* Distance from the bottom */
+    right: 20px;
+    /* Distance from the right */
+    z-index: 1000;
+    /* Ensure it appears above other elements */
+    text-decoration: none;
+}
+
+.whatsapp-icon {
+    width: 60px;
+    /* Adjust the size of the icon */
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Add a shadow for better visibility */
+    transition: transform 0.3s ease;
+    /* Add a hover animation */
+}
+
+.whatsapp-icon:hover {
+    transform: scale(1.1);
+    /* Slight zoom effect on hover */
+}
+
+/* Make the WhatsApp icon float */
+.whatsapp-float {
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px);
+    /* Slight movement up on hover for a floating effect */
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    text-decoration: none;
+    animation: floatUpDown 2s infinite ease-in-out;
+}
+
+@keyframes floatUpDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.whatsapp-icon {
+    width: 60px;
+    /* Adjust the size of the icon */
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-icon:hover {
+    transform: scale(1.1);
+    /* Slight zoom effect on hover */
+}
+
+    </style>
+</head>
+
+<body>
+    {% load static %} 
+    <section class="head">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{% url 'frontend_home' %}">
+                        <img src="{% static 'images/promodh2logo.png' %}" alt="Logo">
+                    </a>
+                </div>
+
+                <div class="social">
+                    <div class="icon-wrapper">
+                        <a href="tel:+919448205107">
+                            <i class="fas fa-phone-alt icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a href="https://www.instagram.com/pramod_roadlines_hubli?igsh=MXVkMTFvOGhtemV6bA%3D%3D&utm_source=qr">
+                            <i class="fab fa-instagram icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a href="mailto:pramodroadlines111@gmail.com">
+                            <i class="fas fa-envelope icon"></i>
+                        </a>
+                    </div>
+                    <div class="icon-wrapper">
+                        <a href="index.html?name=#map">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <header>
+        <nav class="navbar">
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="{% url 'frontend_home' %}">Home</a>
+                <a href="{% url 'frontend_home' %}#about">About</a>
+                <a href="{% url 'frontend_home' %}#delivery">Delivery Stations</a>
+                <a href="{% url 'frontend_home' %}#service">Services</a>
+                <a href="{% url 'frontend_home' %}#gallery">Gallery</a>
+                <a href="{% url 'frontend_home' %}#events">Events</a>
+                <a href="{% url 'frontend_home' %}#contact-form">Contact</a>
+            </div>
+
+            <!-- Login Button -->
+            <div class="login-btn-wrapper">
+                <div>
+                    <button class="login-btn" onclick="location.href='{% url 'login' %}';">Login</button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hamburger) -->
+            <div id="hamburger-icon" onclick="toggleMobileMenu(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+
+                <ul class="mobile-menu">
+                    <li><a href="{% url 'frontend_home' %}">Home</a></li>
+                    <li><a href="{% url 'frontend_home' %}#about">About</a></li>
+                    <li><a href="{% url 'frontend_home' %}#delivery">Delivery Stations</a></li>
+                    <li><a href="{% url 'frontend_home' %}#service">Services</a></li>
+                    <li><a href="{% url 'frontend_home' %}#gallery">Gallery</a></li>
+                    <li><a href="{% url 'frontend_home' %}#events">Events</a></li>
+                    <li><a href="{% url 'frontend_home' %}#contact-form">Contact</a></li>
+                    <li id="login"><a href="{% url 'login' %}">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="form-container" id="form-container">
+        <form id="login-form" action="#" method="POST">
+            <h2>Login to Pramod Roadlines</h2>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            <button type="button" class="login-btn1" onclick="handleLogin()">Login</button>
+            <div class="form-footer">
+                Don't have an account? <span onclick="showRegisterForm()">Register</span>
+            </div>
+        </form>
+
+        <form id="register-form" action="#" method="POST" style="display: none;">
+            <h2>Register to Pramod Roadlines</h2>
+            <div class="form-group">
+                <label for="new-email">Email Address</label>
+                <input type="email" id="new-email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="new-password">Password</label>
+                <input type="password" id="new-password" name="password" required placeholder="Enter your password">
+            </div>
+            <button type="button" class="login-btn1" onclick="handleRegister()">Register</button>
+            <div class="form-footer">
+                Already have an account? <span onclick="showLoginForm()">Login</span>
+            </div>
+        </form>
+    </section>
+
+   
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Pramod Roadlines</h3>
+            <p>A. G. Hugar Building, Near K. K. Complex, New Cotton Market, Hubli.</p>
+            <p><i class="fa fa-map-marker"></i> Hubli, Karnataka, India</p>
+            <p><i class="fa fa-phone"></i>  +91-9448205107, +91-7795925376</p>
+            <p><i class="fa fa-envelope"></i> pramodroadlines111@gmail.com</p>
+            <p><i>GSTIN</i>: 29ATJPS2511G1ZL</p>
+           
+            <!-- <div class="footer-socials">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+            </div> -->
+        </div>
+
+        <div class="footer-section">
+            <h3>Pramod Logistics</h3>
+            <p>G. A. Adhoni Complex, New Cotton Market, Hubli.</p>
+            <p><i class="fa fa-map-marker"></i> Hubli, Karnataka, India</p>
+            <p><i class="fa fa-phone"></i>  +91-9141766104, +91-7795925376</p>
+            <p><i class="fa fa-envelope"></i> pramodlogisticshubli@gmail.com</p>
+            <p><i>GSTIN</i>: 29CSPPS3352E1ZA</p>
+           
+        </div>
+        <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#home">About Us</a></li>
+                <li><a href="#gallery">Services</a></li>
+                <li><a href="#map">Locations Map</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#contact-form">Contact us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#">Full load</a></li>
+                <li><a href="#"> Part Load</a></li>
+                <li><a href="#">Door Delivery</a></li>
+                <li><a href="#"> Door Collection</a></li>
+                <li><a href="#">Godown Delivery</a></li>
+                <li><a href="#">Special Delivery</a></li>
+                <li><a href="#">Special vehicle</a></li>
+            </ul>
+            
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Pramod Roadlines & Logistics. All rights reserved.</p>
+    </div>
+</footer>
+
+    
+    
+<!-- <a href="https://wa.me/918073912782?text=Hello!%20I%20would%20like%20to%20inquire%20about%20your%20services."
+class="whatsapp-float" target="_blank">
+<img src="WhatsApp.jpeg" alt="WhatsApp" class="whatsapp-icon">
+</a> -->
+
+
+    <script>
+
+        function toggleMobileMenu(menu) {
+            menu.classList.toggle('open');
+        }
+
+        const users = [
+            { email: 'user1@example.com', password: 'password1' },
+            { email: 'user2@example.com', password: 'password2' }
+        ];
+
+        function showRegisterForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function showModal(message, type) {
+            let modalHTML = '';
+            let modalId = '';
+
+            if (type === 'success') {
+                modalId = 'success-modal';
+                modalHTML = `
+            <div id="success-modal" class="modal">
+                <div class="modal-content">
+                    <div class="icon-wrapper">
+                        <div class="icon-circle success-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#22c55e">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="modal-title">Success!</h2>
+                    <p class="modal-text">${message}</p>
+                    <button class="close-btn" onclick="closeModal()">Close</button>
+                </div>
+            </div>`;
+            } else if (type === 'error') {
+                modalId = 'error-modal';
+                modalHTML = `
+            <div id="error-modal" class="modal">
+                <div class="modal-content">
+                    <div class="icon-wrapper">
+                        <div class="icon-circle error-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e11d48">
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="modal-title">Error!</h2>
+                    <p class="modal-text">${message}</p>
+                    <button class="close-btn" onclick="closeErrorModal()">Close</button>
+                </div>
+            </div>`;
+            }
+
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("success-modal");
+            if (modal) modal.remove();
+        }
+
+        function closeErrorModal() {
+            const modal = document.getElementById("error-modal");
+            if (modal) modal.remove();
+        }
+
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!validateEmail(email)) {
+                showModal('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showModal('Password must be at least 6 characters long.', 'error');
+                return;
+            }
+
+            const userExists = users.some(user => user.email === email && user.password === password);
+
+            if (userExists) {
+                showModal('Login successful!', 'success');
+            } else {
+                showModal('Invalid email or password.', 'error');
+            }
+        }
+
+        function handleRegister() {
+            const newEmail = document.getElementById('new-email').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            if (!validateEmail(newEmail)) {
+                showModal('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showModal('Password must be at least 6 characters long.', 'error');
+                return;
+            }
+
+            const userExists = users.some(user => user.email === newEmail);
+
+            if (userExists) {
+                showModal('User already exists!', 'error');
+            } else {
+                users.push({ email: newEmail, password: newPassword });
+                showModal('Registration successful! You can now log in.', 'success');
+                showLoginForm();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
